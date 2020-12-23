@@ -1,0 +1,113 @@
+﻿<Window x:Class="DeliveriesDemo.WPF.Views.ShellView"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:vm="clr-namespace:DeliveriesDemo.Core.ViewModels;assembly=DeliveriesDemo.Core"
+		mc:Ignorable="d"
+		Title="Deliveries WPF Demo"
+		SizeToContent="WidthAndHeight"
+		ResizeMode="CanMinimize"
+		WindowStartupLocation="CenterScreen"
+		d:DataContext="{d:DesignInstance Type=vm:ShellViewModel, IsDesignTimeCreatable=True}">
+
+	<Grid Margin="10 0 10 10">
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto" />
+			<ColumnDefinition Width="auto" />
+			<ColumnDefinition Width="330" />
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="385" />
+		</Grid.RowDefinitions>
+
+		<!--#region New Delivery Creation -->
+
+		<!--Section Title-->
+		<TextBlock Grid.Column="0"
+				   Grid.Row="0"
+				   Text="New delivery creation"
+				   FontSize="20"
+				   FontWeight="Light"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top" />
+
+		<ContentControl Grid.Column="0"
+						Grid.Row="1"
+						Content="{Binding DeliveryCreation}"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Top"
+						Margin="0 10 0 0" />
+
+		<!--#endregion-->
+
+		<!--Vertical separator-->
+		<Rectangle Grid.Column="1"
+				   Grid.Row="0"
+				   Grid.RowSpan="2"
+				   Width="2"
+				   Fill="LightGray"
+				   Margin="10 0" />
+
+		<!--#region Active Deliveries -->
+
+		<!--Section Title-->
+		<TextBlock  Grid.Column="2"
+					Grid.Row="0"
+					Text="Active deliveries"
+					FontSize="20"
+					FontWeight="Light"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Top" />
+
+		<Grid Grid.Column="2"
+			  Grid.Row="1"
+			  Margin="0 5 0 0 ">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="auto" />
+			</Grid.RowDefinitions>
+
+			<!--Active deliveries list-->
+			<ContentControl Grid.Row="0"
+							Content="{Binding DeliveryList}"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Top" />
+
+			<!--Time speed dashboard-->
+			<Grid Grid.Row="1"
+				  Margin=" 0 10 0 0">
+
+				<!--Time speed info-->
+				<TextBlock Text="{Binding CurrentTimeSpeedInfo}"
+						   d:Text="Current time multiplier: x3241"
+						   FontSize="14"
+						   FontWeight="Medium"
+						   HorizontalAlignment="Left"
+						   VerticalAlignment="Center"
+						   Foreground="SaddleBrown"
+						   Padding="0 1 0 3" />
+
+				<!--Change time speed button-->
+				<Button Command="{Binding ChangeTimeSpeedCommand}"
+						Content="{Binding ChangeTimeSpeedButtonCaption}"
+						d:Content="Speed up time!!!"
+						FontSize="14"
+						FontWeight="Medium"
+						HorizontalAlignment="Right"
+						Background="Tan"
+						Padding="5 1 5 3" />
+
+			</Grid>
+
+		</Grid>
+
+		<!--#endregion-->
+
+	</Grid>
+
+</Window>

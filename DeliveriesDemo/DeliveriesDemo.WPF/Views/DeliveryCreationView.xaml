@@ -1,0 +1,293 @@
+﻿<UserControl x:Class="DeliveriesDemo.WPF.Views.DeliveryCreationView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:vm="clr-namespace:DeliveriesDemo.Core.ViewModels;assembly=DeliveriesDemo.Core"
+			 mc:Ignorable="d"
+			 d:DataContext="{d:DesignInstance Type=vm:DeliveryCreationViewModel,IsDesignTimeCreatable=True}"
+			 FontSize="14">
+
+	<UserControl.Resources>
+		<!--Default WPF TextBox border color-->
+		<SolidColorBrush x:Key="TextBox.Static.Border"
+						 Color="#FFABAdB3" />
+	</UserControl.Resources>
+
+	<Grid Background="White">
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto" />
+		</Grid.ColumnDefinitions>
+
+		<!--#region Cargo Settings -->
+
+		<Border Grid.Row="0"
+				HorizontalAlignment="Center"
+				BorderBrush="Gray"
+				BorderThickness="2"
+				CornerRadius="5"
+				Padding="5">
+
+			<StackPanel Orientation="Vertical">
+
+				<!--Cargo name selection-->
+				<StackPanel Orientation="Horizontal"
+							Margin="0 0 0 5">
+
+					<TextBlock Text="Cargo: "
+							   VerticalAlignment="Center" />
+
+					<ComboBox ItemsSource="{Binding AvailableCargoNames}"
+							  SelectedItem="{Binding SelectedCargoName}"
+							  MinWidth="50" />
+
+				</StackPanel>
+
+				<!--Cargo weight input-->
+				<StackPanel Orientation="Horizontal">
+
+					<TextBlock Text="Weight: "
+							   VerticalAlignment="Center" />
+
+					<Border BorderThickness="1">
+
+						<Border.Style>
+							<Style TargetType="{x:Type Border}">
+
+								<Setter Property="BorderBrush"
+										Value="{StaticResource TextBox.Static.Border}" />
+
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding CargoWeightLbsHasErrorMessagesForUser}"
+												 Value="True">
+										<Setter Property="BorderBrush"
+												Value="Red" />
+									</DataTrigger>
+								</Style.Triggers>
+
+							</Style>
+						</Border.Style>
+
+						<TextBox Text="{Binding CargoWeightLbsText, UpdateSourceTrigger=PropertyChanged}"
+								 HorizontalContentAlignment="Center"
+								 BorderThickness="0"
+								 Width="70" />
+
+					</Border>
+
+					<TextBlock Text=" lbs"
+							   VerticalAlignment="Center" />
+
+				</StackPanel>
+
+			</StackPanel>
+
+		</Border>
+
+		<!--#endregion-->
+
+		<!--#region Route Geography Settings -->
+
+		<Border Grid.Row="1"
+				BorderBrush="Gray"
+				BorderThickness="2"
+				CornerRadius="5"
+				HorizontalAlignment="Center"
+				Padding="5"
+				Margin="0 5">
+
+			<StackPanel Orientation="Vertical">
+
+				<!--Origin selection-->
+				<StackPanel Orientation="Horizontal"
+							Margin="0 0 0 5">
+
+					<TextBlock Text="City-origin: "
+							   VerticalAlignment="Center" />
+
+					<ComboBox ItemsSource="{Binding AvailableOriginCities}"
+							  SelectedItem="{Binding SelectedOriginCity}"
+							  MinWidth="50" />
+
+				</StackPanel>
+
+				<!--Destination selection-->
+				<StackPanel Orientation="Horizontal">
+
+					<TextBlock Text="City-destination: "
+							   VerticalAlignment="Center" />
+
+					<ComboBox ItemsSource="{Binding AvailableDestinationCities}"
+							  SelectedItem="{Binding SelectedDestinationCity}"
+							  MinWidth="50" />
+
+				</StackPanel>
+
+			</StackPanel>
+
+		</Border>
+
+		<!--#endregion-->
+
+		<!--#region Truck Settings -->
+
+		<Border Grid.Row="2"
+				BorderBrush="Gray"
+				BorderThickness="2"
+				CornerRadius="5"
+				HorizontalAlignment="Center"
+				Padding="5">
+
+			<StackPanel Orientation="Vertical">
+
+				<!--Truck selection-->
+				<StackPanel Orientation="Horizontal">
+
+					<TextBlock Text="Truck:"
+							   VerticalAlignment="Center"
+							   Margin="0 0 5 0" />
+
+					<ComboBox ItemsSource="{Binding AvaliableTruckModelNames}"
+							  SelectedItem="{Binding SelectedTruckModelName}"
+							  MinWidth="50" />
+
+				</StackPanel>
+
+				<!--Truck power grade info-->
+				<StackPanel Orientation="Horizontal">
+
+					<TextBlock Text="Truck power grade: "
+							   FontStyle="Italic" />
+
+					<TextBlock Text="{Binding TruckPowerGradeStars}" />
+
+				</StackPanel>
+
+				<!--Truck fuel efficiency info-->
+				<StackPanel Orientation="Horizontal">
+
+					<TextBlock Text="Truck fuel efficiency grade: "
+							   FontStyle="Italic" />
+
+					<TextBlock Text="{Binding TruckFuelEfficiencyGradeStars}" />
+
+				</StackPanel>
+
+			</StackPanel>
+
+		</Border>
+
+		<!--#endregion-->
+
+		<!--#region Buttons -->
+
+		<Grid Grid.Row="3">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto" />
+				<RowDefinition Height="auto" />
+			</Grid.RowDefinitions>
+
+			<Button Grid.Row="0"
+					Command="{Binding FillInRandomDataCommand}"
+					Content="Fill in random data"
+					HorizontalAlignment="Left"
+					Background="PapayaWhip"
+					Padding="11 0"
+					Margin="0 10 5 10" />
+
+			<Button Grid.Row="0"
+					Command="{Binding ClearFieldsCommand}"
+					Content="Clear fields"
+					HorizontalAlignment="Right"
+					Background="PapayaWhip"
+					Padding="11 0"
+					Margin="5 10 0 10" />
+
+			<Button Grid.Row="1"
+					Command="{Binding CreateDeliveryCommand}"
+					Content="Start delivery!"
+					FontSize="18"
+					Background="gold"
+					FontWeight="Medium"
+					Padding="0 5" />
+
+		</Grid>
+
+		<!--#endregion-->
+
+		<!--#region Validation errors display -->
+
+		<ScrollViewer Grid.Row="4"
+					  VerticalScrollBarVisibility="Auto"
+					  d:VerticalScrollBarVisibility="Visible"
+					  HorizontalAlignment="Center"
+					  Width="240"
+					  Margin="0 10 0 0">
+
+			<ItemsControl ItemsSource="{Binding ValidationErrorMessages}"
+						  HorizontalAlignment="Center">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+
+						<Grid TextBlock.FontSize="12"
+							  Margin="0 1 4 1">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+							<!--Exclamation symbol-->
+							<Border Grid.Column="0"
+									BorderBrush="Red"
+									BorderThickness="2"
+									CornerRadius="10"
+									Width="18"
+									Height="18"
+									Margin="0 0 2 0">
+
+								<TextBlock Text="!"
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center"
+										   FontWeight="Bold"
+										   Foreground="Red" />
+
+							</Border>
+
+							<!--Error message text decoration-->
+							<Border Grid.Column="1"
+									CornerRadius="4"
+									HorizontalAlignment="Left"
+									Background="Red"
+									Padding="5 3">
+
+								<TextBlock Grid.Column="1"
+										   Text="{Binding .}"
+										   TextWrapping="Wrap"
+										   Foreground="White" />
+
+							</Border>
+
+						</Grid>
+
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+		</ScrollViewer>
+
+		<!--#endregion-->
+
+	</Grid>
+
+</UserControl>

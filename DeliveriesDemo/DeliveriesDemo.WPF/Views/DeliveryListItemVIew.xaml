@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="DeliveriesDemo.WPF.Views.DeliveryListItemView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:vm="clr-namespace:DeliveriesDemo.Core.ViewModels;assembly=DeliveriesDemo.Core"
+			 mc:Ignorable="d"
+			 d:DataContext="{d:DesignInstance Type=vm:DeliveryListItemViewModel, IsDesignTimeCreatable=True}"
+			 FontSize="14">
+
+	<Grid Background="White">
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+		</Grid.RowDefinitions>
+
+		<!--#region Cargo Details -->
+
+		<StackPanel Grid.Row="0"
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+			<TextBlock Text="Delivering " />
+
+			<TextBlock Text="{Binding CargoDisplayInfo}"
+					   FontWeight="Bold" />
+
+		</StackPanel>
+
+		<!--#endregion-->
+
+		<!--#region Route Geography -->
+
+		<StackPanel Grid.Row="1"
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+			<TextBlock Text="{Binding OriginName}"
+					   FontWeight="Bold" />
+			<TextBlock Text=" → " />
+			<TextBlock Text="{Binding DestinationName}"
+					   FontWeight="Bold" />
+
+		</StackPanel>
+
+		<!--#endregion-->
+
+		<!--#region Truck Info -->
+
+		<!--Truck model-->
+		<StackPanel Grid.Row="2"
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+			<TextBlock Text="Truck:"
+					   Margin="0 0 5 0" />
+
+			<TextBlock Text="{Binding TruckModel}"
+					   FontWeight="Bold" />
+
+		</StackPanel>
+
+		<!--Average speed and fuel economy display-->
+		<StackPanel Grid.Row="3"
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+			<TextBlock Text="Averaging"
+					   Margin="0 0 5 0" />
+			<TextBlock Text="{Binding AverageSpeedMphDisplay}"
+					   FontWeight="Bold" />
+
+			<TextBlock Text="mph and"
+					   Margin="2 0 5 0" />
+			<TextBlock Text="{Binding AverageFuelEconomyMpgDisplay}"
+					   FontWeight="Bold" />
+			<TextBlock Text="mpg"
+					   Margin="2 0 0 0" />
+
+		</StackPanel>
+
+		<!--#endregion-->
+
+		<!--#region Delivery Progress -->
+
+		<!--Remaining time and distance-->
+		<StackPanel Grid.Row="4"
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+			<TextBlock Text="Remaining:"
+					   Margin="0 0 5 0" />
+			<TextBlock Text="{Binding RemainingDeliveryTimeDisplay}"
+					   FontWeight="Bold" />
+
+			<TextBlock Text=","
+					   Margin="2 0 5 0" />
+			<TextBlock Text="{Binding RouteLengthMilesRemainingDisplay}"
+					   FontWeight="Bold" />
+			<TextBlock Text="miles"
+					   Margin="2 0 0 0" />
+
+		</StackPanel>
+
+		<!--Progress bar-->
+		<ProgressBar Grid.Row="5"
+					 Value="{Binding DeliveryCompletedPercent, Mode=OneWay}"
+					 Height="7"
+					 Margin="0 5 0 0" />
+
+		<!--#endregion-->
+
+	</Grid>
+
+</UserControl>

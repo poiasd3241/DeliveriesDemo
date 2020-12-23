@@ -1,0 +1,25 @@
+﻿<Application x:Class="DeliveriesDemo.WPF.App"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:vm="clr-namespace:DeliveriesDemo.Core.ViewModels;assembly=DeliveriesDemo.Core"
+			 xmlns:views="clr-namespace:DeliveriesDemo.WPF.Views">
+	<Application.Resources>
+
+		<!--#region Associating ViewModels With Views -->
+
+		<DataTemplate DataType="{x:Type vm:DeliveryCreationViewModel}">
+			<views:DeliveryCreationView />
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type vm:DeliveryListItemViewModel}">
+			<views:DeliveryListItemView />
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type vm:DeliveryListViewModel}">
+			<views:DeliveryListView />
+		</DataTemplate>
+
+		<!--#endregion-->
+
+	</Application.Resources>
+</Application>
